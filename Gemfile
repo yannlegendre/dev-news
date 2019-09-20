@@ -21,6 +21,8 @@ group :development do
 end
 
 group :development, :test do
+  gem 'rspec-rails'
+  gem "factory_bot_rails"
   gem 'pry-byebug'
   gem 'pry-rails'
   gem 'listen', '~> 3.0.5'
@@ -28,3 +30,14 @@ group :development, :test do
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'dotenv-rails'
 end
+
+group :test do
+  gem 'faker'
+  gem 'capybara'
+  gem 'guard-rspec'
+  gem 'launchy'
+end
+
+
+gem 'awesome_print'
+gem 'database_cleaner'

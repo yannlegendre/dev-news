@@ -10,10 +10,80 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_19_140750) do
+ActiveRecord::Schema.define(version: 2019_09_20_074236) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "article_themes", force: :cascade do |t|
+    t.bigint "article_id", null: false
+    t.bigint "theme_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["article_id"], name: "index_article_themes_on_article_id"
+    t.index ["theme_id"], name: "index_article_themes_on_theme_id"
+  end
+
+  create_table "articles", force: :cascade do |t|
+    t.string "title"
+    t.string "url"
+    t.text "content"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "comments", force: :cascade do |t|
+    t.string "content"
+    t.integer "commentable_id"
+    t.string "commentable_type"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_comments_on_user_id"
+  end
+
+  create_table "events", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "meetup_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["meetup_id"], name: "index_events_on_meetup_id"
+    t.index ["user_id"], name: "index_events_on_user_id"
+  end
+
+  create_table "meetup_themes", force: :cascade do |t|
+    t.bigint "meetup_id", null: false
+    t.bigint "theme_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["meetup_id"], name: "index_meetup_themes_on_meetup_id"
+    t.index ["theme_id"], name: "index_meetup_themes_on_theme_id"
+  end
+
+  create_table "meetups", force: :cascade do |t|
+    t.string "title"
+    t.string "host"
+    t.string "address"
+    t.datetime "date_time"
+    t.integer "capacity"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "themes", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "upvotes", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "article_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["article_id"], name: "index_upvotes_on_article_id"
+    t.index ["user_id"], name: "index_upvotes_on_user_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -23,8 +93,20 @@ ActiveRecord::Schema.define(version: 2019_09_19_140750) do
     t.datetime "remember_created_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "first_name"
+    t.string "last_name"
+    t.string "address"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "article_themes", "articles"
+  add_foreign_key "article_themes", "themes"
+  add_foreign_key "comments", "users"
+  add_foreign_key "events", "meetups"
+  add_foreign_key "events", "users"
+  add_foreign_key "meetup_themes", "meetups"
+  add_foreign_key "meetup_themes", "themes"
+  add_foreign_key "upvotes", "articles"
+  add_foreign_key "upvotes", "users"
 end
