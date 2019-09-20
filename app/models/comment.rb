@@ -9,8 +9,8 @@ class Comment < ApplicationRecord
     commentable_type == 'Article' ? commentable : nil
   end
 
-  def all_comments
-    comments
-  end
+  # def all_comments
+  #   comments
+  # end
 
 end
