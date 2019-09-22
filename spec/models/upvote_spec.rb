@@ -39,7 +39,6 @@ describe Upvote do
       create(:upvote, user: user, article: article2)
       expect(user.upvotes.count).to eq 2
     end
-
   end
 
   context 'Associations' do

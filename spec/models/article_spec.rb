@@ -8,7 +8,6 @@ describe Article do
     it "has a valid factory" do
       expect(@article).to be_valid
     end
-
     it "is invalid without a title" do
       expect(build(:article, title: nil)).to_not be_valid
     end
@@ -17,15 +16,6 @@ describe Article do
     end
     it "is invalid without a url" do
       expect(build(:article, url: nil)).to_not be_valid
-    end
-    it "one upvote max per user and per article" do
-      user = create(:user)
-      create(:upvote, user: user, article: @article)
-      upvote2 = Upvote.new(user: user, article: @article)
-      upvote2.validate
-      ap upvote2.errors.messages
-      expect(@article.upvotes.count).to eq 1
-      expect(upvote2.errors.messages[:article]).to include('has already been taken')
     end
   end
 
