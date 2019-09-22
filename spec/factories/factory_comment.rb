@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :comment_on_article, class: "Comment" do
+  factory :comment, class: "Comment" do
     content { "Great stuff" }
     user
     association :commentable, factory: :article
@@ -8,6 +8,6 @@ FactoryBot.define do
   factory :reply, class: "Comment" do
     content { "Great stuff" }
     user
-    association :commentable, factory: :comment_on_article
+    association :commentable, factory: :comment
   end
 end
