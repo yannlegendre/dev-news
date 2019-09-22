@@ -18,11 +18,17 @@ describe Article do
     it "is invalid without a url" do
       expect(build(:article, url: nil)).to_not be_valid
     end
+    it "one upvote max per user and per article" do
+      user = create(:user)
+      create(:upvote, user: user, article: @article)
+      create(:upvote, user: user, article: @article)
+      expect(article.upvotes.count).to eq 1
+    end
   end
 
   context 'Associations' do
     it "has many comments" do
-      create(:comment_on_article, commentable: @article)
+      create(:comment, commentable: @article)
       expect(@article.comments.count).to be > 0
     end
     it "has many upvotes" do

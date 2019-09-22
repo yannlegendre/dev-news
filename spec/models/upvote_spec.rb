@@ -10,8 +10,6 @@ describe Upvote do
       expect(@upvote).to be_valid
     end
     it "is invalid without a user" do
-      create(:upvote, user: nil)
-      ap User.all
       expect(build(:upvote, user: nil)).to_not be_valid
     end
     it "is invalid without a article" do
@@ -22,7 +20,22 @@ describe Upvote do
       article = create(:article)
       create(:upvote, user: user, article: article)
       create(:upvote, user: user, article: article)
-      expect(article.upvotes.count).to eq 1
+
+    end
+    it "several users can upvote the same article" do
+      user = create(:user)
+      user2 = create(:user)
+      article = create(:article)
+      create(:upvote, user: user, article: article)
+      create(:upvote, user: user2, article: article)
+    end
+    it "several articles can be upvoted the same user" do
+      user = create(:user)
+      article = create(:article)
+      article2 = create(:article)
+      create(:upvote, user: user, article: article)
+      create(:upvote, user: user, article: article2)
+      expect(user.upvotes.count).to eq 2
     end
   end
 

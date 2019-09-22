@@ -5,6 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_many :upvotes
+  has_many :comments
   has_many :user_meetups
   has_many :meetups, through: :user_meetups
 
