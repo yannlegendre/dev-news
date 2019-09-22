@@ -19,8 +19,10 @@ describe Upvote do
       user = create(:user)
       article = create(:article)
       create(:upvote, user: user, article: article)
-      create(:upvote, user: user, article: article)
-
+      upvote2 = Upvote.new(user: user, article: article)
+      upvote2.validate
+      expect(article.upvotes.count).to eq 1
+      expect(upvote2.errors.messages[:article]).to include('has already been taken')
     end
     it "several users can upvote the same article" do
       user = create(:user)
@@ -29,7 +31,7 @@ describe Upvote do
       create(:upvote, user: user, article: article)
       create(:upvote, user: user2, article: article)
     end
-    it "several articles can be upvoted the same user" do
+    it "several articles can be upvoted by the same user" do
       user = create(:user)
       article = create(:article)
       article2 = create(:article)
@@ -37,6 +39,7 @@ describe Upvote do
       create(:upvote, user: user, article: article2)
       expect(user.upvotes.count).to eq 2
     end
+
   end
 
   context 'Associations' do

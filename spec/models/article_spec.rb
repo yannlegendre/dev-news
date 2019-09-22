@@ -21,8 +21,11 @@ describe Article do
     it "one upvote max per user and per article" do
       user = create(:user)
       create(:upvote, user: user, article: @article)
-      create(:upvote, user: user, article: @article)
-      expect(article.upvotes.count).to eq 1
+      upvote2 = Upvote.new(user: user, article: @article)
+      upvote2.validate
+      ap upvote2.errors.messages
+      expect(@article.upvotes.count).to eq 1
+      expect(upvote2.errors.messages[:article]).to include('has already been taken')
     end
   end
 
