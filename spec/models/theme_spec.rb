@@ -1,5 +1,33 @@
 require 'rails_helper'
 
-RSpec.describe Theme, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+describe Theme do
+  before(:each) do
+    @theme = create(:theme)
+  end
+
+  context 'Validations' do
+    it "has a valid factory" do
+      expect(@theme).to be_valid
+    end
+    it "is invalid without a name" do
+      expect(build(:theme, name: nil)).to_not be_valid
+    end
+  end
+
+  context 'Associations' do
+    it "has many articles" do
+      a1 = create(:article)
+      a2 = create(:article)
+      create(:article_theme, theme: @theme, article: a1)
+      create(:article_theme, theme: @theme, article: a2)
+      expect(@theme.articles.length).to eq 2
+    end
+    it "has many meetups" do
+      m1 = create(:meetup)
+      m2 = create(:meetup)
+      create(:meetup_theme, theme: @theme, meetup: m1)
+      create(:meetup_theme, theme: @theme, meetup: m2)
+      expect(@theme.meetups.length).to eq 2
+    end
+  end
 end
