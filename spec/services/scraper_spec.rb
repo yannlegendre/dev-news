@@ -6,6 +6,7 @@ describe Scraper do
   end
 
   medium_ruby_rails = Scraper.new(themes: ["ruby", "rails"])
+  medium_ruby_rails_error = Scraper.new(themes: ["ferfzefzef"])
   before(:all) do
     @res = medium_ruby_rails.scrape_medium
   end
@@ -70,6 +71,10 @@ describe Scraper do
       else
         expect_results
       end
+    end
+
+    it "search with no results should return a hash with error message under 'error' key" do
+      expect(medium_ruby_rails_error.scrape_medium[:list].first[:error]).to include("No results")
     end
   end
 end

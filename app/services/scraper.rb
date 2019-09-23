@@ -22,7 +22,7 @@ class Scraper
         description: description.present? ? description : "Click the link for more"
       }
     end
-    ap response
+    response[:list] << { error: "No results" } if response[:list].empty?
     return response
   end
 end
