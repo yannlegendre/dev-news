@@ -1,1 +1,51 @@
-// Specific CSS for your home-page
+// horizontal bar
+.theme-search-section {
+display: flex;
+}
+
+//child elements
+.theme-search-instructions {
+  background-color: #123456;
+  flex: 1 0 30%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.theme-search-zone {
+  background-color: #452165;
+  flex: 2 0 30%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.theme-search-items {
+  background-color: #f42581;
+  flex: 2 0 30%;
+}
+
+.theme-card-container {
+    display: flex;
+    flex-wrap: wrap;
+
+    font-size: 30px;
+}
+
+
+.main-content {
+ display: flex;
+ & > * {
+  flex: 1 0 50%;
+  text-align: center;
+ }
+}
+.content-articles{
+  background-color: green;
+}
+.content-meetups{
+  background-color: red;
+}
+
+.content-container {
+}

@@ -1,0 +1,87 @@
+.article-card {
+  margin: 32px;
+  background-color: yellow;
+  border-radius: 8px;
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.card-up {
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  flex: 1 0 60%;
+  border-radius: 8px 8px 0 0;
+  position: relative;
+  h4 {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    margin: 0;
+    font-size: 1.6em;
+  }
+  .card-upvotes {
+    background-color: rgba(0, 0, 0, 0.10);
+    padding: 8px;
+    border-radius: 4px;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+  }
+
+}
+
+.card-down {
+  flex: 1 0 40%;
+  display: flex;
+  flex-direction: column;
+}
+.card-content {
+  flex: 1 0 60%;
+  display: flex;
+  flex-direction: row;
+}
+.card-summary {
+  flex: 2 0 50%;
+  text-align: justify;
+  padding: 16px;
+}
+
+.card-theme-container {
+  flex: 1 0 30%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  padding-right: 10px;
+  .article-theme {
+    padding: 2px;
+    margin: 0 10px;
+    background-color: rgba(0, 0, 0, 0.10);
+  }
+}
+
+.card-comments-section {
+  flex: 1 0 20%;
+  display: flex;
+  flex-direction: row;
+}
+.comment-form {
+  flex: 2 0 50%;
+  text-align: left;
+  align-items: center;
+  input {
+    margin-left: 16px;
+    background-color: transparent;
+    width: 90%;
+  }
+}
+.comments-list {
+  align-items: center;
+  flex: 1 0 30%;
+}
+
+
