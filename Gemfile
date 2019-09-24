@@ -21,7 +21,7 @@ group :development do
 end
 
 group :development, :test do
-  gem 'rspec-rails'
+  gem 'rspec-rails', '~> 4.0.0.beta2'
   gem "factory_bot_rails"
   gem 'pry-byebug'
   gem 'pry-rails'
@@ -36,6 +36,7 @@ group :test do
   gem 'capybara'
   gem 'guard-rspec'
   gem 'launchy'
+  gem 'rails-controller-testing'
 end
 
 
