@@ -11,5 +11,9 @@ RSpec.describe ThemesController, type: :controller do
     it "request should render the index view" do
       expect(response.status).to render_template("index")
     end
+    it "passes @themes to the view" do
+      theme = Theme.create!(name: "apero")
+      expect(assigns(:themes)).to eq([theme])
+    end
   end
 end

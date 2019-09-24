@@ -1,6 +1,6 @@
 class ThemesController < ApplicationController
 
   def index
-    @themes = Theme.all # mettre current user
+    @themes = current_user || Theme.all # mettre current user
   end
 end
