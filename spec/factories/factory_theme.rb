@@ -1,5 +1,5 @@
 FactoryBot.define do
   factory :theme do
-    name {"Programming"}
+    sequence(:name) { |n| "theme #{n}" }
   end
 end
