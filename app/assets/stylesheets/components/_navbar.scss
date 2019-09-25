@@ -10,12 +10,15 @@ nav {
   h1 {
     font-family: $headings;
     font-weight: 400;
+    font-size: 2.4em;
   }
 
-  .fa-bars {
+  .nav-right {
     position: absolute;
-    font-size: 30px;
     right: 20px;
     top: 15px;
+    .fa-bars, #login{
+      font-size: 30px;
+    }
   }
 }

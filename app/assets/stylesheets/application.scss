@@ -14,3 +14,19 @@
 body {
   margin: 0;
 }
+
+h1, h2, h3 {
+  font-family: $headings;
+  font-weight: 400;
+}
+
+p, span {
+  font-family: $text;
+}
+
+a {
+  color: $text-color;
+  &:visited {
+    color: $text-color;
+  };
+}
