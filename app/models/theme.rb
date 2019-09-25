@@ -4,6 +4,6 @@ class Theme < ApplicationRecord
   has_many :meetup_themes
   has_many :meetups, through: :meetup_themes
 
-  validates :name, presence: true
+  validates :name, presence: true, uniqueness: true
 
 end

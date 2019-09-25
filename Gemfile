@@ -43,3 +43,4 @@ end
 gem 'awesome_print'
 gem 'database_cleaner'
 gem 'nokogiri'
+gem "faker"

@@ -12,6 +12,10 @@ describe Theme do
     it "is invalid without a name" do
       expect(build(:theme, name: nil)).to_not be_valid
     end
+    it "has a unique name" do
+      Theme.create(name: "toto")
+      expect(build(:theme, name: "toto")).to_not be_valid
+    end
   end
 
   context 'Associations' do
