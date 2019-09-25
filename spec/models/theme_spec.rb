@@ -37,8 +37,8 @@ describe Theme do
     it "destroys instances from join tables upon destruction" do
       article = create(:article)
       meetup = create(:meetup)
-      at = ArticleTheme.create(article: article, theme: @theme)
-      mt = MeetupTheme.create(meetup: meetup, theme: @theme)
+      ArticleTheme.create(article: article, theme: @theme)
+      MeetupTheme.create(meetup: meetup, theme: @theme)
       @theme.destroy!
       expect(ArticleTheme.count).to eq 0
       expect(MeetupTheme.count).to eq 0
