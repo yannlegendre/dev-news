@@ -78,21 +78,18 @@ class Scraper
     return response
   end
 
-  def build_results(response)
+  def build_results
     array = []
-    response[:list].each do |result|
-      a = Article.build!(
+    scrape_tc[:list].each do |result|
+      a = Article.new(
         title: result[:title],
         url: result[:url],
         img_url: result[:img_url],
         content: result[:description]
-      array << a
       )
-      return array
+      array << a
     end
+    return array
   end
 
-  def scrap_and_build
-    save_results(scrape_tc)
-  end
 end
