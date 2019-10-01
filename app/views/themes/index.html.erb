@@ -5,7 +5,7 @@
     </div>
     <div class="theme-search-zone">
       <form action="/themes/search">
-        <input id="search-bar"type="text" name="theme">
+        <input id="search-bar"type="text" name="theme" placeholder="javascript, python, rails, ...">
         <div class="search-buttons">
           <input type="submit" name="search" value="Search articles">
           <input type="submit" name="search" value="Search Meetups">
@@ -28,11 +28,13 @@
     <div class="content-articles">
       <h2>Article list</h2>
       <div class="content-container">
-        <%= render @article %>
-        <div class="article-card"></div>
-        <div class="article-card"></div>
-        <div class="article-card"></div>
-        <div class="article-card"></div>
+        <% if @articles %>
+          <% @articles.each do |article| %>
+            <%= render partial: "shared/article", locals: { article: article }  %>
+          <% end %>
+        <% else %>
+          <div class="search-error">No articles found, try again!</div>
+        <% end %>
       </div>
     </div>
     <div class="content-meetups">

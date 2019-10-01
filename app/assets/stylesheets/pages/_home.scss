@@ -84,15 +84,28 @@ height: 300px;
  display: flex;
  & > * {
   flex: 1 0 50%;
-  text-align: center;
+  h2 {
+    text-align: center;
+  }
  }
 }
 .content-articles{
-  background-color: green;
+  // background-color: green;
+  flex: 1 0 50%;
+
 }
 .content-meetups{
-  background-color: red;
+  // background-color: red;
 }
 
 .content-container {
+}
+
+
+
+
+.search-error {
+  text-align: center;
+  font-size: 1.4em;
+  margin-top: 30px;
 }

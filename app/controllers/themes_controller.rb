@@ -1,19 +1,26 @@
 class ThemesController < ApplicationController
 
   def index
-    @themes = current_user || Theme.all # mettre current user
+    @themes = Theme.all
+    @articles = Article.first(3)
   end
 
   def search
     if params[:search] == "Search articles"
-      search_articles
+      render :index, locals: { @articles: search_articles }
     elsif params[:search] == "Search meetups"
+      render :index
     elsif params[:search] == "Add to interests"
     end
-    render :index
   end
 
   def search_articles
-    s = Scraper.new(themes: params[:theme])
+    if params[:themes].present?
+      themes = params[:themes]
+    else
+      themes = ["javascript"]
+    end
+    s = Scraper.new(themes: themes)
+    return s.build.results
   end
 end

@@ -2,6 +2,7 @@ LANGUAGES = %w{programming data apps aws ux hardware productivity agile software
 
 puts "Destroying current seeds"
 Theme.destroy_all
+Article.destroy_all
 
 puts "Creating users"
 User.create(email:"a@a", password: "azertyuiop")
@@ -16,5 +17,12 @@ puts "Creating themes"
   LANGUAGES.each do |language|
     Theme.create(name: language)
   end
-
 puts "#{Theme.count} themes created."
+
+puts "Creating articles"
+Article.create!(
+  title: "hello",
+  content: "cest un bel article",
+  img_url: "https://i-love-png.com/images/no-image_7279.png",
+  url: "https://www.google.com"
+)

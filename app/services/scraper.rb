@@ -70,11 +70,29 @@ class Scraper
         url: node.at_css('h2 a').attribute('href').value,
         img_url: node.at_css('footer img').attribute('src').value,
         title: node.search('h2 a').first.text.strip,
-        description: content ? content.text.strip : ""
+        description: content ? content.text.strip : "Click link to know more"
       }
       puts
     end
     response[:list] << { error: "No results" } if response[:list].empty?
     return response
+  end
+
+  def build_results(response)
+    array = []
+    response[:list].each do |result|
+      a = Article.build!(
+        title: result[:title],
+        url: result[:url],
+        img_url: result[:img_url],
+        content: result[:description]
+      array << a
+      )
+      return array
+    end
+  end
+
+  def scrap_and_build
+    save_results(scrape_tc)
   end
 end
