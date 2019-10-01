@@ -44,4 +44,10 @@ describe Theme do
       expect(MeetupTheme.count).to eq 0
     end
   end
+
+  it "returns search results" do
+    create(:theme, name: "abc def")
+    create(:theme, name: "toto acoucou")
+    expect(Theme.search("a").count).to eq 2
+  end
 end

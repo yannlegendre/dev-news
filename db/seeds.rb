@@ -1,4 +1,4 @@
-LANGUAGES = %w{ruby rails mvc python c c++ javascript html cryptocurrency webdevelopment scss nodejs vue angular tdd ddd react java pascal excel}
+LANGUAGES = %w{programming data apps aws ux hardware productivity agile software software pwa engineering windows vim youtube interviewing ruby rails blockchain sql mvc python php c c++ javascript html cryptocurrency webdevelopment scss nodejs vue.js angular tdd ddd react java pascal excel}
 
 puts "Destroying current seeds"
 Theme.destroy_all
@@ -8,14 +8,13 @@ User.create(email:"a@a", password: "azertyuiop")
 puts "Users created"
 
 puts "Creating themes"
-  50.times do
+  100.times do
     Theme.create(name: Faker::Hacker.adjective)
+    Theme.create(name: Faker::Hacker.verb)
+    Theme.create(name: Faker::Hacker.abbreviation)
   end
   LANGUAGES.each do |language|
     Theme.create(name: language)
   end
-puts "Themes created"
 
-ap Theme.all
-
-puts "All done!"
+puts "#{Theme.count} themes created."

@@ -32,7 +32,6 @@ group :development, :test do
 end
 
 group :test do
-  gem 'faker'
   gem 'capybara'
   gem 'guard-rspec'
   gem 'launchy'
@@ -44,3 +43,7 @@ gem 'awesome_print'
 gem 'database_cleaner'
 gem 'nokogiri'
 gem "faker"
+gem 'pg_search', '~> 2.3.0'
+gem "watir"
+gem "headless"
+gem "webdrivers"
