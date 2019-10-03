@@ -33,6 +33,10 @@
     top: 20px;
     right: 20px;
   }
+  .card-upvotes.upvoted {
+    border:  2px solid #008000 ;
+    color: #008000;
+  }
 
 }
 
@@ -86,3 +90,4 @@
   align-items: center;
   flex: 1 0 30%;
 }
+
