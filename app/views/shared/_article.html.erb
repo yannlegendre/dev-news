@@ -1,11 +1,10 @@
   <div class="article-card">
-    <div class="card-up" style="background-image: linear-gradient(rgba(0,0,0,0.2),rgba(0,0,0,0.35)), url(<%= article.img_url %>);">
+    <a href=<%=article.url  %> class="card-up" style="background-image: linear-gradient(rgba(0,0,0,0.2),rgba(0,0,0,0.35)), url(<%= article.img_url %>);">
       <h4><%= article.title %></h4>
       <div class="card-upvotes">  <%= article.upvotes.count %> <i class="fas fa-heart"></i></div>
-    </div>
+    </a>
     <div class="card-down">
       <div class="card-content">
-        <div class="card-summary"><%= article.content %></div>
         <div class="card-theme-container">
           <% article.themes.each do |theme| %>
             <div class="user-theme-card"><%= theme.name %></div>

@@ -12,7 +12,7 @@
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
-  flex: 1 0 60%;
+  flex: 1 0 75%;
   border-radius: 8px 8px 0 0;
   position: relative;
   // display: flex;
@@ -26,7 +26,7 @@
     text-shadow: 1px 1px 2px black;
   }
   .card-upvotes {
-    background-color: rgba(0, 0, 0, 0.10);
+    background-color: rgba(255,255, 255, 0.40);
     padding: 8px;
     border-radius: 4px;
     position: absolute;
@@ -37,7 +37,7 @@
 }
 
 .card-down {
-  flex: 1 0 40%;
+  flex: 1 0 25%;
   display: flex;
   flex-direction: column;
 }
