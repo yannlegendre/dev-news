@@ -1,7 +1,7 @@
   <div class="article-card">
     <a href=<%=article.url  %> class="card-up" style="background-image: linear-gradient(rgba(0,0,0,0.2),rgba(0,0,0,0.35)), url(<%= article.img_url %>);">
       <h4><%= article.title %></h4>
-      <div class="card-upvotes">  <%= article.upvotes.count %> <i class="fas fa-heart"></i></div>
+      <div class="card-upvotes upvoted">  <%= article.upvotes.count %> <i class="fas fa-heart"></i></div>
     </a>
     <div class="card-down">
       <div class="card-content">
