@@ -6,6 +6,7 @@ class Article < ApplicationRecord
 
   validates :title, :url, :content, presence: true
 
+
   # def all_comments
   #   all_descending_comments(self)
   # end

@@ -7,11 +7,9 @@
       <div class="card-content">
         <div class="card-summary"><%= article.content %></div>
         <div class="card-theme-container">
-          <div class="article-theme">TDD</div>
-          <div class="article-theme">Ruby</div>
-          <div class="article-theme">IOT</div>
-          <div class="article-theme">IOT</div>
-          <div class="article-theme">IOT</div>
+          <% article.themes.each do |theme| %>
+            <div class="user-theme-card"><%= theme.name %></div>
+          <% end %>
         </div>
       </div>
       <div class="card-comments-section">

@@ -1,4 +1,4 @@
-class Api_Meetup
+class Api_Eventbrite
   attr_accessor :themes
   attr_accessor :lon
   attr_accessor :lat
@@ -13,7 +13,7 @@ class Api_Meetup
     @radius = attributes[:radius]
   end
 
-  def get_events
+  def meetups
 
   end
 

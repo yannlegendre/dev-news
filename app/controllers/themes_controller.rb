@@ -1,23 +1,31 @@
 class ThemesController < ApplicationController
   def index
     @themes = Theme.all
-
     if params[:theme].present?
-      s = Scraper.new(themes: themes)
-      @articles = s.build_results
+      launch_search
     else
-      @articles = Article.last(3)
+      set_default_articles
     end
-
   end
 
-  def search_results
+  def launch_search
     if params[:search] == "Search articles"
-      render :index, collection: new_articles
+      s = Scraper.new(themes: params[:theme])
+      @articles = s.build_results
+      @articles.each do |article|
+        ap article.themes
+      end
     elsif params[:search] == "Search meetups"
-      render :index
+      a = Api_Eventbrite.new(themes: params[:theme])
+      @meetups = a.meetups
+      set_default_articles
     elsif params[:search] == "Add to interests"
+      # s = Scraper.new(themes: [params[:theme]])
+      # @articles = s.build_results
     end
   end
 
+  def set_default_articles
+    @articles = Article.first(3)
+  end
 end
