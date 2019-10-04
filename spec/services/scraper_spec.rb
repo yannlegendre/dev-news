@@ -5,10 +5,10 @@ describe Scraper do
     expect(@res[:list].size).to be > 0
   end
 
-  ruby_rails = Scraper.new(themes: ["ruby", "rails"])
-  ruby_rails_error = Scraper.new(themes: ["ferfzefzef"])
-  python = Scraper.new(themes: ["python"])
-  ruby_rails_error = Scraper.new(themes: ["ferfzefzef"])
+  ruby_rails = Scraper.new(themes: "ruby rails")
+  ruby_rails_error = Scraper.new(themes: "ferfzefzef")
+  python = Scraper.new(themes: "python")
+  ruby_rails_error = Scraper.new(themes: "ferfzefzef")
 
   it "should create a scraper with keywords ruby and rails" do
     expect(ruby_rails.themes).to include("ruby", "rails")
