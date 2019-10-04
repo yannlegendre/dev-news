@@ -47,3 +47,5 @@ gem 'pg_search', '~> 2.3.0'
 gem "watir"
 gem "headless"
 gem "webdrivers"
+gem "rest-client"
+gem "webmock"

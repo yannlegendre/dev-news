@@ -2,6 +2,7 @@ require 'rails_helper'
 
 describe ApiCaller do
   api = ApiCaller.new(themes: "wild code")
+  api_one_word = ApiCaller.new(themes: "code")
 
   it "should create an instance of Api Caller" do
     expect(api.themes.count).to eq 2
@@ -10,17 +11,27 @@ describe ApiCaller do
 
   context "EventBrite API" do
     before(:all) do
-      @result = api.call_eventbrite
-    end
-
-    it "should return a hash" do
-      expect(@result).to be_a Hash
+      @result = api_one_word.call_eventbrite
+      @search_url = "https://www.eventbriteapi.com/v3/events/search?q=code"
     end
 
     it "should call the right url" do
-      expect(@result[:search_url]).to eq "https://www.eventbriteapi.com/v3/events/search?q=wild%20code"
+      expect(@result[:search_url]).to eq @search_url
     end
-    it "result hash should contain event title"
+
+    it "api call should return hash containing events" do
+      expect(@result[:events].count).to be > 0
+    end
+
+    it "result hash should contain event title" do
+      api_one_word.make_event(@result)
+      expect(@result[:events].first["name"]["text"]).to be_a String
+    end
+    it "result hash should contain event date" do
+      api_one_word.make_event(@result)
+      expect(@result[:events].first["start"]["local"]).to be_a String
+    end
+
     it "result hash should contain event date"
     it "result hash should contain event location"
     it "if no result, should return a specifid hash"
