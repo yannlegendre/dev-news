@@ -15,10 +15,11 @@ describe Meetup do
     it "is invalid without a title" do
       expect(build(:meetup, title: nil)).to_not be_valid
     end
-    it "is invalid without an address" do
-      expect(build(:meetup, address: nil)).to_not be_valid
+    it "is invalid without an url" do
+      expect(build(:meetup, url: nil)).to_not be_valid
     end
   end
+
 
   context 'Associations' do
     it "has many users" do

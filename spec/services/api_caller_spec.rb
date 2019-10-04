@@ -11,8 +11,10 @@ describe ApiCaller do
 
   context "EventBrite API" do
     before(:all) do
-      @result = api_one_word.call_eventbrite
+      # @result = api_one_word.call_eventbrite
+      @result = api_one_word.simulate_call
       @search_url = "https://www.eventbriteapi.com/v3/events/search?q=code"
+      @sim = api_one_word.make_event(@result)
     end
 
     it "should call the right url" do
@@ -24,15 +26,18 @@ describe ApiCaller do
     end
 
     it "result hash should contain event title" do
-      api_one_word.make_event(@result)
       expect(@result[:events].first["name"]["text"]).to be_a String
     end
+
+
     it "result hash should contain event date" do
-      api_one_word.make_event(@result)
       expect(@result[:events].first["start"]["local"]).to be_a String
     end
 
-    it "result hash should contain event date"
+    it "result hash should contain event url" do
+      expect(@result[:events].first["url"]).to be_a String
+    end
+
     it "result hash should contain event location"
     it "if no result, should return a specifid hash"
   end

@@ -4,6 +4,5 @@ class Meetup < ApplicationRecord
   has_many :meetup_themes
   has_many :themes, through: :meetup_themes
 
-  validates :title, :address, :date_time, presence: true
-
+  validates :title, :date_time, :url, presence: true
 end
