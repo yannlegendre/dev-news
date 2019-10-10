@@ -82,7 +82,7 @@ class Scraper
   def build_results
     array = []
     scrape_tc[:list].each do |result|
-      a = Article.create(
+      a = Article.find_by(title: result[:title]) || Article.create(
         title: result[:title],
         url: result[:url],
         img_url: result[:img_url],
