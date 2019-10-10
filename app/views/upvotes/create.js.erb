@@ -1,0 +1,8 @@
+var articleElement = document.querySelector("[data-article-id='<%= @article.id %>']");
+var countElement = articleElement.querySelector('span');
+var upvoteZone = articleElement.querySelector('.card-upvotes')
+count = parseInt(countElement.innerHTML, 10);
+var currentUpvotesCount = <%= @article.upvotes.count %>;
+countElement.innerHTML = currentUpvotesCount;
+upvoteZone.classList.toggle("upvoted");
+

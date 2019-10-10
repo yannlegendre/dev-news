@@ -1,12 +1,12 @@
-  <div class="article-card">
+  <div class="article-card" data-article-id=<%= article.id %>>
     <div href=<%=article.url  %> class="card-up" style="background-image: linear-gradient(rgba(0,0,0,0.2),rgba(0,0,0,0.35)), url(<%= article.img_url %>);">
       <%= link_to article.url , class: "article-card-link'=" do %>
         <h4><%= article.title %></h4>
       <% end %>
 
 
-      <%= link_to upvotes_path(article_id: article.id), method: :post, class: "card-upvotes #{ "upvoted" if article.upvoted?(current_user)}" do%>
-         <%= article.upvotes.count %> <i class="fas fa-heart"></i>
+      <%= link_to upvotes_path(article_id: article.id), method: :post, class: "card-upvotes #{ "upvoted" if article.upvoted?(current_user)}", remote: :true do%>
+         <span><%= article.upvotes.count %></span>  <i class="fas fa-heart"></i>
       <% end %>
     </div>
 
