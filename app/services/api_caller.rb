@@ -15,14 +15,17 @@ class ApiCaller
 
   def call_eventbrite
     result = {}
-    url = "https://www.eventbriteapi.com/v3/events/search?q=" + @themes.join("%20")
+    url = "https://www.eventbriteapi.com/v3/events/search?q=" + @themes.join("%20") +"&location.latitude=45.75&location.longitude=4.85"
     result[:search_url] = url
+    ap url
+    ap  "https://www.eventbriteapi.com/v3/events/search?q=java&location.latitude=45.75&location.longitude=4.85"
     response = request(url)
     # File.open("#{Rails.root}/app/services/events.json", "w") do |f|
     #   f.write(response)
     # end
 
     parsed_response = JSON.parse(response)
+    ap response
     result[:events] = parsed_response["events"].first(3) if parsed_response["events"].present?
     return result
   end
@@ -39,17 +42,22 @@ class ApiCaller
 
   def request(url)
     key =  "Bearer #{ENV['EVENTBRITE_KEY']}"
-    response = RestClient.get(url, 'authorization' => key, 'Content-Type' => "application/json")
+    puts "before request"
+    response = RestClient.get(url, 'authorization' => key, 'Content-Type' => "application/json", timeout: 30)
+    puts "after request"
     return response.body
   end
 
   def make_event(result_hash)
+    array = []
     events = result_hash.with_indifferent_access[:events]
     events.each do |event|
       title = event[:name][:text]
       date_time = Date.parse(event[:start][:local])
       url = event[:url]
-      Meetup.create(title: title, date_time: date_time, url: url)
+      a = Meetup.create(title: title, date_time: date_time, url: url)
+      array << a
     end
+    return array
   end
 end

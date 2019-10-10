@@ -1,0 +1,14 @@
+  <div class="meetup-card">
+    <a href=<%=meetup.url  %> class="card-up" style="background-image: linear-gradient(rgba(0,0,0,0.2),rgba(0,0,0,0.35)), url('https://www.billboard.com/files/styles/article_main_image/public/media/eventbrite-NEW-logo-2018-billboard-1548.jpg');">
+      <h4><%= meetup.title%></h4>
+    </a>
+    <div class="card-down-meetup">
+      <div class="card-time-section">
+         <%= meetup.date_time.strftime("Le %d/%m/%Y") %>
+      </div>
+    </div>
+  </div>
+
+
+<!-- t.strftime("Printed on %m/%d/%Y")   #=> "Printed on 11/19/2007"
+t.strftime("at %I:%M%p") -->

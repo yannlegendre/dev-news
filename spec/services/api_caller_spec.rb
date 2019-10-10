@@ -29,7 +29,6 @@ describe ApiCaller do
       expect(@result[:events].first["name"]["text"]).to be_a String
     end
 
-
     it "result hash should contain event date" do
       expect(@result[:events].first["start"]["local"]).to be_a String
     end

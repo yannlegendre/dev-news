@@ -4,4 +4,6 @@ Rails.application.routes.draw do
 
   resources :themes, only: [:index]
 
+  resources :upvotes, only: [:create]
+
 end

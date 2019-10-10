@@ -1,4 +1,4 @@
-.article-card {
+.article-card, .meetup-card {
   margin: 32px;
   background-color: white;
   border-radius: 8px;
@@ -94,3 +94,18 @@
   flex: 1 0 30%;
 }
 
+.card-time-section {
+  font-size: 1.2em;
+}
+
+.card-down-meetup {
+  flex: 1 0 25%;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+
+.show-comments {
+
+}

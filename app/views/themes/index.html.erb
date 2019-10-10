@@ -8,7 +8,7 @@
         <input id="search-bar"type="text" name="theme" placeholder="javascript, python, rails, ...">
         <div class="search-buttons">
           <input type="submit" name="search" value="Search articles">
-          <input type="submit" name="search" value="Search Meetups">
+          <input type="submit" name="search" value="Search meetups">
           <input type="submit" name="search" value="Add to interests">
         </div>
       </form>
@@ -40,12 +40,13 @@
     <div class="content-meetups">
       <h2>Meetup list</h2>
       <div class="content-container">
-        <div class="meetup-card">
-
-        </div>
-        <div class="meetup-card"></div>
-        <div class="meetup-card"></div>
-        <div class="meetup-card"></div>
+        <% if @meetups %>
+          <% @meetups.each do |meetup| %>
+            <%= render partial: "shared/meetup", locals: { meetup: meetup }  %>
+          <% end %>
+        <% else %>
+          <div class="search-error">No meetups</div>
+        <% end %>
       </div>
     </div>
   </div>
