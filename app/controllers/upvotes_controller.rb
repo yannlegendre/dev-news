@@ -7,9 +7,8 @@ class UpvotesController < ApplicationController
       @upvote.delete
     # sinon on upvote (@action = add)
     else
-      @upvote = Upvote.new(user: current_user, article: @article)
+      @upvote = Upvote.create(user: current_user, article: @article)
     end
-    @upvote.save
     respond_to do |format|
       format.html { redirect_to themes_path }
       format.js

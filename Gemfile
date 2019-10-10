@@ -48,4 +48,5 @@ gem "watir"
 gem "headless"
 gem "webdrivers"
 gem "rest-client"
+gem 'omniauth-google-oauth2'
 # gem "webmock"
