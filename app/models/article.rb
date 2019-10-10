@@ -6,6 +6,9 @@ class Article < ApplicationRecord
 
   validates :title, :url, :content, presence: true
 
+  def upvoted?(user)
+    upvotes.where(user: user).any?
+  end
 
   # def all_comments
   #   all_descending_comments(self)

@@ -1,8 +1,15 @@
   <div class="article-card">
-    <a href=<%=article.url  %> class="card-up" style="background-image: linear-gradient(rgba(0,0,0,0.2),rgba(0,0,0,0.35)), url(<%= article.img_url %>);">
-      <h4><%= article.title %></h4>
-      <div class="card-upvotes upvoted">  <%= article.upvotes.count %> <i class="fas fa-heart"></i></div>
-    </a>
+    <div href=<%=article.url  %> class="card-up" style="background-image: linear-gradient(rgba(0,0,0,0.2),rgba(0,0,0,0.35)), url(<%= article.img_url %>);">
+      <%= link_to article.url , class: "article-card-link'=" do %>
+        <h4><%= article.title %></h4>
+      <% end %>
+
+
+      <%= link_to upvotes_path(article_id: article.id), method: :post, class: "card-upvotes #{ "upvoted" if article.upvoted?(current_user)}" do%>
+         <%= article.upvotes.count %> <i class="fas fa-heart"></i>
+      <% end %>
+    </div>
+
     <div class="card-down">
       <div class="card-content">
         <div class="card-theme-container">

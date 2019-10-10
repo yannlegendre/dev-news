@@ -8,6 +8,17 @@
   justify-content: center;
 }
 
+a.glo-link {
+  &::after {
+    position: absolute;
+    z-index: 0;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+}
+
 .card-up {
   background-size: cover;
   background-repeat: no-repeat;
@@ -32,6 +43,7 @@
     position: absolute;
     top: 20px;
     right: 20px;
+    z-index: 10;
   }
   .card-upvotes.upvoted {
     border:  2px solid #008000 ;
@@ -104,8 +116,4 @@
   text-align: center;
   justify-content: center;
   align-items: center;
-}
-
-.show-comments {
-
 }

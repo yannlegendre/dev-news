@@ -34,4 +34,21 @@ describe Article do
       expect(@article.themes.count).to be > 0
     end
   end
+
+  context 'Methods' do
+    it "upvoted?(user) returns true if article has been upvoted by user" do
+      user = create(:user)
+      article = create(:article)
+      upvote = create(:upvote, user: user, article: article)
+      expect(article.upvoted?(user)).to eq true
+    end
+    it "upvoted?(user) returns false if article is not upvoted by user" do
+      user = create(:user)
+      article = create(:article)
+      upvote = create(:upvote, user: user, article: article)
+      upvote.delete
+      expect(article.upvoted?(user)).to eq false
+    end
+
+  end
 end

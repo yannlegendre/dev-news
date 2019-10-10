@@ -6,6 +6,5 @@ document.querySelectorAll('.card-upvotes').forEach((upvote) => {
   upvote.addEventListener('click', (e) => {
     console.log("hehehe");
     upvote.classList.toggle("upvoted");
-    e.preventDefault();
   })
 })
