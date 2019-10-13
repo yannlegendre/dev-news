@@ -2,7 +2,7 @@
   margin: 32px;
   background-color: white;
   border-radius: 8px;
-  height: 400px;
+  height: 300px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -23,7 +23,7 @@ a.glo-link {
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
-  flex: 1 0 75%;
+  height: 90%;
   border-radius: 8px 8px 0 0;
   position: relative;
   // display: flex;
@@ -47,10 +47,11 @@ a.glo-link {
   }
   .card-upvotes.upvoted {
     border:  2px solid #008000 ;
+    padding: 6px;
     color: #008000;
-    .fas:after {
-      content: " - You liked";
-    }
+    // .fas:after {
+    //   content: " - You liked";
+    // }
   }
 
 }
@@ -99,6 +100,7 @@ a.glo-link {
     margin-left: 16px;
     background-color: transparent;
     width: 90%;
+    margin-bottom: 16px;
   }
 }
 .comments-list {
