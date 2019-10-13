@@ -1,5 +1,6 @@
 class UpvotesController < ApplicationController
   def create
+    params.inspect
     @article = Article.find(params[:article_id])
     # @si deja upvote, on le supprime (@action = "remove")
     if @article.upvoted?(current_user)
