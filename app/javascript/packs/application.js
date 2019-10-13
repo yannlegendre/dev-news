@@ -9,8 +9,12 @@
 // })
 
 const postComment = (articleId, content) => {
-  var url = `http://localhost:3000/comments?article_id=${articleId}`
-  fetch(url, { method: 'POST' })
+  var url = `http://localhost:3000/comments`
+  var body = {
+   'article_id': articleId,
+   'content': content
+  }
+  fetch(url, { method: 'POST', body: JSON.stringify(body) })
   .then(function(response) {
     return response.blob();
   })
