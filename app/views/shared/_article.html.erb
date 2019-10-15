@@ -21,7 +21,7 @@
       <div class="card-comments-section">
         <div class="comment-form"><input data-article-id=<%= article.id %> class= "comment-input" type="" name="" placeholder="Enter your comment">
         </div>
-        <%= link_to "#{article.comments.count} comments" ,  "#", class: "comments-list"  %>
+        <%= link_to "#{pluralize(article.comments.count, "comment")}" ,  "#", class: "comments-list"  %>
       </div>
     <div class="show-comments">
     </div>

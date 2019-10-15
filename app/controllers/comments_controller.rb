@@ -6,19 +6,20 @@ class CommentsController < ApplicationController
 
 
   def create
-    @comment = Comment.new(comment_params)
+    article = Article.find(params[:article_id])
+    @comment = Comment.new(content: params[:content])
     @comment.commentable_type = "Article"
     @comment.user = current_user
-    @comment.commentable = Article.find(comment_params['article_id'])
-    ap @comment
-    render root_path
+    @comment.commentable = article
+    @comment.save
+    # render root_path
+    render json: {nb_com: article.comments.count }
   end
 
   def index
   end
-
-  def comment_params
-    params.permit('content', 'article_id')
-  end
-
 end
+
+
+
+
