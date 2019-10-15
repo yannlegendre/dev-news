@@ -2,10 +2,11 @@ const postComment = () => {
   const post = (articleId, content) => {
     var url = `http://localhost:3000/comments`
     let articleElement = document.querySelector(`[data-article-id="${articleId}"]`)
-    // var body = JSON.stringify ({
+    // let body = JSON.stringify ({
     //  'article_id': articleId,
     //  'content': content
     // })
+    // console.log(body);
     // fetch(url, { method: 'POST', body: body })
     fetch(`${url}?article_id=${articleId}&content=${content}`, { method: 'POST'})
     .then(function(response) {
@@ -13,8 +14,8 @@ const postComment = () => {
     })
     .then(function(data) {
       let nb_com = data.nb_com;
-      // console.log(articleElement.querySelector('.comments-list ').innerText);
-      articleElement.querySelector('.comments-list ').innerText = `${data.nb_com} comments`;
+      articleElement.querySelector('.comments-list').innerText = `${data.nb_com} comments`;
+      document.activeElement.value = "";
     });
   }
 
@@ -26,7 +27,6 @@ const postComment = () => {
         let input = document.activeElement
         let articleId = input.dataset.articleId
         let content = input.value
-
         post(articleId, content);
       }
     })

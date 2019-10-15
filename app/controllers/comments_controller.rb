@@ -6,14 +6,20 @@ class CommentsController < ApplicationController
 
 
   def create
+    puts  params.inspect
+    ap params[:content] # retourne nil
+    ap params[:article_id] # retourne nil
     article = Article.find(params[:article_id])
     @comment = Comment.new(content: params[:content])
-    @comment.commentable_type = "Article"
+    # @comment.commentable_type = "Article" # utile ?
     @comment.user = current_user
     @comment.commentable = article
-    @comment.save
+    if @comment.save
     # render root_path
-    render json: {nb_com: article.comments.count }
+      render json: { nb_com: article.comments.count }
+    else
+      render "themes#index"
+    end
   end
 
   def index
