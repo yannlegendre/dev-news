@@ -9,11 +9,12 @@ class Scraper
 
   def initialize(attributes = {})
     @themes = attributes[:themes].strip.split(/\s+/)
+    @themes_str = @themes.join("%20")
   end
 
   def scrape_medium
     response = {}
-    response[:search_url] = "https://www.medium.com/search?q=" + @themes.join("%20")
+    response[:search_url] = "https://www.medium.com/search?q=" + @themes_str
     response[:list] = []
     html = Nokogiri::HTML(open(response[:search_url]).read)
     node = html.search('.postArticle-content').first
@@ -36,27 +37,8 @@ class Scraper
 
   # content is populated with JS after page is loaded so cannot be scraped efficiently with nokogiri
   def scrape_fcc
-    response = {}
-    response[:search_url] = "https://www.freecodecamp.org/news/search/?query=" + @themes.join("%20")
-    response[:list] = []
-    headless = Headless.new
-    headless.start
-    browser = Watir::Browser.new
-    browser.goto response[:search_url]
-    browser.driver.save_screenshot('screenshot.png')
-    html = Nokogiri::HTML.parse(browser.html)
-    html.search('article').first(3).each do |node|
-      # response[:list] << {
-      #   url: node.at_css('a').attribute('href').value,
-      #   img_url: node.at_css('.card-image-link').attribute('href').value,
-      #   title: node.search('post-card-content h2 a').first.attribute('href').value,
-      #   description: node.at_css('footer time').text
-      # }
-    end
-    response[:list] << { error: "No results" } if response[:list].empty?
-    # ap response
-    headless.destroy
-    return response
+    # url = "https://qmjyl5wyti-dsn.algolia.net/1/indexes/news/query?x-algolia-agent=Algolia%20for%20JavaScript%20(3.33.0)%3B%20Browser&x-algolia-application-id=QMJYL5WYTI&x-algolia-api-key=4318af87aa3ce128708f1153556c6108"
+
   end
 
   def scrape_tc
