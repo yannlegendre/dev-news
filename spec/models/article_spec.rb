@@ -33,6 +33,21 @@ describe Article do
       create(:article_theme, article: @article)
       expect(@article.themes.count).to be > 0
     end
+
+    it "destroys its comments upon destruction" do
+      article = create(:article)
+      create(:comment, commentable: article)
+      article.destroy
+      expect(Comment.count).to eq 0
+    end
+
+    it "destroy its upvotes upon destruction" do
+      article = create(:article)
+      a = create(:upvote, article: article)
+      article.destroy
+      expect(Upvote.count).to eq 0
+    end
+
   end
 
   context 'Methods' do

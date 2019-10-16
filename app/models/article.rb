@@ -1,7 +1,7 @@
 class Article < ApplicationRecord
-  has_many :upvotes
-  has_many :comments, as: :commentable
-  has_many :article_themes
+  has_many :upvotes, dependent: :destroy
+  has_many :comments, as: :commentable, dependent: :destroy
+  has_many :article_themes, dependent: :destroy
   has_many :themes, through: :article_themes
 
   validates :title, :url, :content, presence: true
@@ -9,6 +9,7 @@ class Article < ApplicationRecord
   def upvoted?(user)
     upvotes.where(user: user).any?
   end
+
 
   # def all_comments
   #   all_descending_comments(self)

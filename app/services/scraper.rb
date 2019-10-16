@@ -8,7 +8,7 @@ class Scraper
   attr_accessor :themes
 
   def initialize(attributes = {})
-    @themes = attributes[:themes].split(/\s+/)
+    @themes = attributes[:themes].strip.split(/\s+/)
   end
 
   def scrape_medium
@@ -89,7 +89,8 @@ class Scraper
         content: result[:description]
       )
       @themes.each do |theme|
-        t = Theme.find_by(name: theme) || Theme.create(name: theme)
+        t = Theme.find_or_create_by(name: theme)
+        # t = Theme.find_by(name: theme) || Theme.create(name: theme)
         ArticleTheme.create(article: a, theme: t)
       end
       array << a
