@@ -12,7 +12,7 @@ class ThemesController < ApplicationController
   def launch_search
     if params[:search] == "Search articles"
       s = Scraper.new(themes: params[:theme])
-      @articles = s.build_results
+      @articles = s.build_articles(s.scrape_fcc)
       set_default_meetups
     elsif params[:search] == "Search meetups"
       ap "je suis la"

@@ -27,38 +27,29 @@ class Scraper
       url = article["url"]
       theme_array = article["tags"].map { |item| item["name"] }.first(3)
       themes = get_themes(theme_array)
-      result << { title: title, img_url: img_url, url: url, themes: themes}
+      result << { title: title, img_url: img_url, url: url, themes: themes }
     end
     result
   end
 
   def get_themes(themes)
     res = []
-    themes.each do |theme|
-      res << Theme.find_or_create_by(name: theme)
-    end
-    return res
+    themes.each { |theme| res << Theme.find_or_create_by(name: theme) }
+    res
   end
-
 
   # convert response into array of 3 article instances saved in DB
-  def build_results
-    array = []
-    scrape_tc[:list].each do |result|
-      a = Article.find_by(title: result[:title]) || Article.create(
-        title: result[:title],
-        url: result[:url],
-        img_url: result[:img_url],
-        content: result[:description]
-      )
-      @themes.each do |theme|
-        t = Theme.find_or_create_by(name: theme)
-        # t = Theme.find_by(name: theme) || Theme.create(name: theme)
-        ArticleTheme.create(article: a, theme: t)
+  def build_articles(scraped_array)
+    articles = []
+    scraped_array.each do |article|
+      a = Article.find_or_create_by(title: article[:title]) do |art|
+        art[:url] = article[:url]
+        art[:img_url] = article[:img_url]
       end
-      array << a
+      ap a.id
+      article[:themes].each { |t| ArticleTheme.create(article: a, theme: t) }
+      articles << a
     end
-    return array
+    articles
   end
-
 end

@@ -76,7 +76,26 @@ describe Scraper do
   end
 
   context "build articles" do
-    it "should find a given article based on existing title"
-    it "should create a new article if title does not exist in db"
+    before(:all) do
+      themes = [create(:theme), create(:theme), create(:theme)]
+      @res = good_search.build_articles([title: "coucou", url: "toto", img_url: "toto", themes: themes])
+    end
+
+    it "should return an array of instances of Article" do
+      expect(@res).to be_an Array
+      expect(@res.first).to be_a Article
+    end
+    it "should find a given article based on existing title" do
+      create(:article, title: "coucou")
+      themes = [create(:theme), create(:theme), create(:theme)]
+      good_search.build_articles([title: "coucou", url: "toto", img_url: "toto", themes: themes])
+      ap Article.all
+      expect(Article.all.length).to eq 2
+    end
+
+    it "should create a new article if title does not exist in db" do
+      create(:article)
+      expect(Article.all.length).to eq 2
+    end
   end
 end
