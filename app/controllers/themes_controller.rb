@@ -21,8 +21,8 @@ class ThemesController < ApplicationController
       @meetups = a.make_event(result)
       set_default_articles
     elsif params[:search] == "Add to interests"
-      # s = Scraper.new(themes: [params[:theme]])
-      # @articles = s.build_results
+      s = Scraper.new(themes: [params[:theme]])
+      @articles = s.scrape_fcc
     end
   end
 

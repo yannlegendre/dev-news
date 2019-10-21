@@ -11,8 +11,8 @@ describe Article do
     it "is invalid without a title" do
       expect(build(:article, title: nil)).to_not be_valid
     end
-    it "is invalid without a content" do
-      expect(build(:article, content: nil)).to_not be_valid
+    it "is invalid without an image" do
+      expect(build(:article, img_url: nil)).to_not be_valid
     end
     it "is invalid without a url" do
       expect(build(:article, url: nil)).to_not be_valid

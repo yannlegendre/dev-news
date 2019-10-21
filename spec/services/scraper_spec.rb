@@ -1,136 +1,82 @@
 require 'rails_helper'
 
 describe Scraper do
-  def expect_results
-    expect(@res[:list].size).to be > 0
+  good_search = Scraper.new(themes: "ruby rails")
+  no_result_search = Scraper.new(themes: "ferfzefzef")
+
+  it "should create a test scraper with keywords ruby and rails" do
+    expect(good_search.themes).to include("ruby", "rails")
+    expect(good_search.themes.length).to eq 2
+  end
+  it "should create a test scraper with garbage keywords" do
+    expect(no_result_search.themes).to include("ferfzefzef")
   end
 
-  ruby_rails = Scraper.new(themes: "ruby rails")
-  ruby_rails_error = Scraper.new(themes: "ferfzefzef")
-  python = Scraper.new(themes: "python")
-  ruby_rails_error = Scraper.new(themes: "ferfzefzef")
-
-  it "should create a scraper with keywords ruby and rails" do
-    expect(ruby_rails.themes).to include("ruby", "rails")
-    expect(ruby_rails.themes.length).to eq 2
-  end
-
-
-  context "Medium scraper " do
+  context "Free code camp scraper" do
     before(:all) do
-      @res = ruby_rails.scrape_medium
+      @res = good_search.scrape_fcc
     end
 
-    it "should return a hash" do
-      expect(@res).to be_a Hash
-    end
-    it "should return the good search url" do
-      expect(@res[:search_url]).to eq("https://www.medium.com/search?q=ruby%20rails")
-    end
-    it "post seach on url should return results" do
-      expect_results
+    it "should return an array " do
+      expect(@res).to be_a Array
     end
 
-    it "result hash should contain article url" do
-      if @res[:list].present?
-        expect(@res[:list].first[:url]).to be_a String
-      else
-        expect_results
-      end
-    end
-
-    # it "each @result hash should contain article image url" do
-    #   if @res[:list].present?
-    #     expect(@res[:list].first[:img_url]).to be_a String
-    #     expect(@res[:list].second[:img_url]).to be_a String
-    #     expect(@res[:list].third[:img_url]).to be_a String
-    #   else
-    #     expect_results
-    #   end
-    # end
-    it "result hash should contain a title" do
-      if @res[:list].present?
-        expect(@res[:list].first[:title]).to be_a String
-      else
-        expect_results
-      end
-    end
-    it "result hash should contain article description" do
-      if @res[:list].present?
-        expect(@res[:list].first[:description]).to be_a String
-      else
-        expect_results
-      end
-    end
-
-    it "search with no results should return a hash with error message under 'error' key" do
-      expect(ruby_rails_error.scrape_medium[:list].first[:error]).to include("No results")
-    end
-  end
-
-  context "tech chrunch scraper" do
-    before(:all) do
-      @res = python.scrape_tc
-    end
-
-    it "should return a hash" do
-      expect(@res).to be_a Hash
-    end
-    it "should return the good search url" do
-      expect(@res[:search_url]).to eq("https://techcrunch.com/search/python")
-    end
-    it "post seach on url should return results" do
-      expect_results
-    end
-
-    it "should return three hashes for three results" do
-      if @res[:list].present?
-        expect(@res[:list].size).to eq 3
-      else
-        expect_results
-      end
+    it "should return 3 results" do
+      expect(@res.length).to eq 3
     end
 
     it "each result hash should contain article url" do
-      if @res[:list].present?
-        expect(@res[:list].first[:url]).to be_a String
-        expect(@res[:list].second[:url]).to be_a String
-        expect(@res[:list].third[:url]).to be_a String
-      else
-        expect_results
-      end
+      expect(@res.first[:url]).to be_a String
+      expect(@res.second[:url]).to be_a String
+      expect(@res.third[:url]).to be_a String
     end
 
-    it "each @result hash should contain article image url" do
-      if @res[:list].present?
-        expect(@res[:list].first[:img_url]).to be_a String
-        expect(@res[:list].second[:img_url]).to be_a String
-        expect(@res[:list].third[:img_url]).to be_a String
-      else
-        expect_results
-      end
+    it "each result hash should contain article image url" do
+      expect(@res.first[:img_url]).to be_a String
+      expect(@res.second[:img_url]).to be_a String
+      expect(@res.third[:img_url]).to be_a String
     end
     it "each result hash should contain a title" do
-      if @res[:list].present?
-        expect(@res[:list].first[:title]).to be_a String
-        expect(@res[:list].second[:title]).to be_a String
-        expect(@res[:list].third[:title]).to be_a String
-      else
-        expect_results
-      end
+      expect(@res.first[:title]).to be_a String
+      expect(@res.second[:title]).to be_a String
+      expect(@res.third[:title]).to be_a String
     end
-    it "each result hash should contain article description" do
-      if @res[:list].present?
-        expect(@res[:list].first[:description]).to be_a String
-        expect(@res[:list].second[:description]).to be_a String
-        expect(@res[:list].third[:description]).to be_a String
-      else
-        expect_results
-      end
+    it "each result hash should contain a list of themes instances" do
+      expect(@res.first[:themes]).to be_a Array
+      expect(@res.second[:themes]).to be_a Array
+      expect(@res.third[:themes]).to be_a Array
     end
 
-    it "search with no results should return a hash with error message under 'error' key" do
-      expect(ruby_rails_error.scrape_medium[:list].first[:error]).to include("No results")
+    it "search with no results should return an empty array" do
+      expect(no_result_search.scrape_fcc).to eq []
     end
+  end
+
+  context "get themes method" do
+    it "should return an array of themes instances" do
+      t = good_search.get_themes(["ruby", "rails"])
+      expect(t).to be_a Array
+      expect(t.first).to be_a Theme
+    end
+
+
+    it "should create new themes if the one just scrapped did not exist" do
+      r = Theme.create(name: "ruby")
+      t = good_search.get_themes(["rails", "ruby"])
+      expect(t.length).to eq 2
+      expect(Theme.last.name).to eq "rails"
+    end
+
+    it "should find existing themes in database" do
+      r = Theme.create(name: "ruby")
+      t = good_search.get_themes(["ruby"])
+      expect(t.length).to eq 1
+      expect(Theme.last.name).to eq "ruby"
+    end
+  end
+
+  context "build articles" do
+    it "should find a given article based on existing title"
+    it "should create a new article if title does not exist in db"
   end
 end

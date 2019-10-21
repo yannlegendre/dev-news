@@ -4,7 +4,7 @@ class Article < ApplicationRecord
   has_many :article_themes, dependent: :destroy
   has_many :themes, through: :article_themes
 
-  validates :title, :url, :content, presence: true
+  validates :title, :url, :img_url, presence: true
 
   def upvoted?(user)
     upvotes.where(user: user).any?

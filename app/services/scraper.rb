@@ -8,57 +8,38 @@ class Scraper
   attr_accessor :themes
 
   def initialize(attributes = {})
-    @themes = attributes[:themes].strip.split(/\s+/)
+    @themes = attributes[:themes].split(/\s+/)
     @themes_str = @themes.join("%20")
   end
 
-  def scrape_medium
-    response = {}
-    response[:search_url] = "https://www.medium.com/search?q=" + @themes_str
-    response[:list] = []
-    html = Nokogiri::HTML(open(response[:search_url]).read)
-    node = html.search('.postArticle-content').first
-    if node.present?
-      title = node.search('h3').text
-      img_el = node.search('.progressiveMedia-image')
-      description = node.search('.graf-after--h3').text
-      response[:list] << {
-        url: node.at_css('a').attribute('href').value,
-        img_url: img_el.present? ? img_el.attribute('src').value : "https://i-love-png.com/images/no-image_7279.png",
-        title: (title.present? ? title : (node.search('.u-noWrapWithEllipsis').text || "No title")),
-        description: description.present? ? description : "Click the link for more"
-      }
-      response[:list] << { error: "No results" } if response[:list].empty?
-    else
-      response[:list] << { error: "No results" }
-    end
-    return response
-  end
-
   # content is populated with JS after page is loaded so cannot be scraped efficiently with nokogiri
+  # interception of the API call to algolia + borrowing api key to reproduce the request
+
+  # this methods returns an array of 3 hashes
   def scrape_fcc
-    # url = "https://qmjyl5wyti-dsn.algolia.net/1/indexes/news/query?x-algolia-agent=Algolia%20for%20JavaScript%20(3.33.0)%3B%20Browser&x-algolia-application-id=QMJYL5WYTI&x-algolia-api-key=4318af87aa3ce128708f1153556c6108"
-
-  end
-
-  def scrape_tc
-    response = {}
-    response[:search_url] = "https://techcrunch.com/search/" + @themes.join("%20")
-    response[:list] = []
-    html = Nokogiri::HTML(open(response[:search_url]).read)
-    html.search('.post-block--image').first(3).each do |node|
-      content = node.at_css('.post-block__content p')
-      response[:list] << {
-        url: node.at_css('h2 a').attribute('href').value,
-        img_url: node.at_css('footer img').attribute('src').value,
-        title: node.search('h2 a').first.text.strip,
-        description: content ? content.text.strip : "Click link to know more"
-      }
-      puts
+    result = []
+    url = "https://qmjyl5wyti-dsn.algolia.net/1/indexes/news/query?x-algolia-agent=Algolia%20for%20JavaScript%20(3.33.0)%3B%20Browser&x-algolia-application-id=QMJYL5WYTI&x-algolia-api-key=4318af87aa3ce128708f1153556c6108"
+    payload = '{"params":"query=' + @themes_str + '&hitsPerPage=15&page=0"}'
+    response = JSON.parse(RestClient.post(url, payload).body)["hits"].first(3)
+    response.each do |article|
+      title = article["title"]
+      img_url = article["featureImage"]
+      url = article["url"]
+      theme_array = article["tags"].map { |item| item["name"] }.first(3)
+      themes = get_themes(theme_array)
+      result << { title: title, img_url: img_url, url: url, themes: themes}
     end
-    response[:list] << { error: "No results" } if response[:list].empty?
-    return response
+    result
   end
+
+  def get_themes(themes)
+    res = []
+    themes.each do |theme|
+      res << Theme.find_or_create_by(name: theme)
+    end
+    return res
+  end
+
 
   # convert response into array of 3 article instances saved in DB
   def build_results
