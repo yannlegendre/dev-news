@@ -42,7 +42,7 @@ class ApiCaller
 
   def request(url)
     key =  "Bearer #{ENV['EVENTBRITE_KEY']}"
-    response = RestClient.get(url, 'authorization' => key, 'Content-Type' => "application/json", timeout: 30)
+    response = RestClient.get(url, 'authorization' => key, 'Content-Type' => "application/json")
     ap response.body
     return response.body
   end

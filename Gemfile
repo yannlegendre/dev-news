@@ -50,5 +50,6 @@ gem "webdrivers"
 gem "rest-client"
 gem 'omniauth-google-oauth2'
 gem 'omniauth-facebook'
+gem 'geocoder'
 
 # gem "webmock"

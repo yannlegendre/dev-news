@@ -47,7 +47,10 @@
             <%= render partial: "shared/meetup", locals: { meetup: meetup }  %>
           <% end %>
         <% else %>
-          <div class="search-error">No meetups</div>
+          <div class="search-error">
+            <p>Meetup feature not yet available ! 🤓</p>
+            <p>Eventbrite API not available at the moment and Meetup API is 💸</p>
+          </div>
         <% end %>
       </div>
     </div>

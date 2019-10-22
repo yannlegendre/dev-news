@@ -16,10 +16,14 @@ class ThemesController < ApplicationController
       set_default_meetups
 
     elsif params[:search] == "Events near me"
-      a = ApiCaller.new(themes: params[:theme], lon: params[:longitude], lat: params[:latitude])
-      result = a.call_eventbrite
-      @meetups = a.make_event(result)
+      # a = ApiCaller.new(themes: params[:theme], lon: params[:longitude], lat: params[:latitude])
+      # result = a.call_eventbrite
+      # @meetups = a.make_event(result)
+      lat_lon = "#{params[:latitude]},#{params[:longitude]}"
+      ap lat_lon
+      response = Geocoder.search(lat_lon).first
       set_default_articles
+      ap response.data[:city]
     # elsif params[:search] == "Add to interests"
     #   s = Scraper.new(themes: [params[:theme]])
     #   @articles = s.scrape_fcc
@@ -30,6 +34,6 @@ class ThemesController < ApplicationController
     @articles = Article.last(3)
   end
   def set_default_meetups
-    @meetups = Meetup.last(3)
+    @meetups = nil
   end
 end
