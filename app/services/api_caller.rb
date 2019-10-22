@@ -15,7 +15,7 @@ class ApiCaller
 
   def call_eventbrite
     result = {}
-    url = "https://www.eventbriteapi.com/v3/events/search?q=" + @themes.join("%20") +"&location.latitude=45.75&location.longitude=4.85"
+    url = "https://www.eventbriteapi.com/v3/events/search?q=" + @themes.join("%20") +"&location.latitude=#{@lat}&location.longitude=#{@lon}"
     result[:search_url] = url
     ap url
     ap  "https://www.eventbriteapi.com/v3/events/search?q=java&location.latitude=45.75&location.longitude=4.85"
@@ -42,9 +42,8 @@ class ApiCaller
 
   def request(url)
     key =  "Bearer #{ENV['EVENTBRITE_KEY']}"
-    puts "before request"
     response = RestClient.get(url, 'authorization' => key, 'Content-Type' => "application/json", timeout: 30)
-    puts "after request"
+    ap response.body
     return response.body
   end
 

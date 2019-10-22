@@ -14,8 +14,9 @@ class ThemesController < ApplicationController
       s = Scraper.new(themes: params[:theme])
       @articles = s.build_articles(s.scrape_fcc)
       set_default_meetups
-    elsif params[:search] == "Search meetups"
-      a = ApiCaller.new(themes: params[:theme])
+
+    elsif params[:search] == "Events near me"
+      a = ApiCaller.new(themes: params[:theme], lon: params[:longitude], lat: params[:latitude])
       result = a.call_eventbrite
       @meetups = a.make_event(result)
       set_default_articles

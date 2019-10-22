@@ -6,9 +6,11 @@
     <div class="theme-search-zone">
       <form action="/themes">
         <input id="search-bar"type="text" name="theme" placeholder="javascript, python, rails, ...">
+        <%= hidden_field_tag 'latitude' %>
+        <%= hidden_field_tag 'longitude' %>
         <div class="search-buttons">
           <input type="submit" name="search" value="Search articles">
-          <input type="submit" name="search" value="Search meetups">
+          <input type="submit" name="search" value="Events near me">
           <input type="submit" name="search" value="Add to interests">
         </div>
       </form>
