@@ -18,10 +18,10 @@
     <div class="theme-search-items">
       <h4>Some of your current interests</h4>
       <div class="theme-card-container">
-        <% @interests.each do |interest| %>
+        <% @user_themes.each do |user_theme| %>
           <div class="user-theme-card">
-            <span><%= interest.name %></span>
-            <%= link_to user_theme_path(interest), method: delete, data: { confirm: "Are you sure?" }  do %>
+            <span><%= user_theme.theme.name %></span>
+            <%= link_to user_theme_path(user_theme), method: :delete do %>
               <i class="far fa-minus-square"></i>
             <% end %>
           </div>

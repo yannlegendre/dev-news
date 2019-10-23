@@ -1,6 +1,6 @@
 class ThemesController < ApplicationController
   def index
-    @interests = current_user.interests.limit(10).order("RANDOM()")
+    @user_themes = current_user.user_themes.limit(6).order("RANDOM()")
     if params[:theme].present?
       launch_search
     else
@@ -20,6 +20,7 @@ class ThemesController < ApplicationController
       add_interests if params[:search].present?
       set_default_articles
     end
+    render :index
   end
 
   private
@@ -43,7 +44,6 @@ class ThemesController < ApplicationController
 
   def add_interests
     themes = params[:theme].split(/\s+/)
-
     themes.each do |theme|
       Theme.create(name: theme) unless theme_instance = Theme.find_by(name: theme)
       UserTheme.find_or_create_by(theme: theme_instance, user: current_user)
