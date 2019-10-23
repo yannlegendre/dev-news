@@ -3,6 +3,7 @@ class Theme < ApplicationRecord
   has_many :articles, through: :article_themes
   has_many :meetup_themes, dependent: :destroy
   has_many :meetups, through: :meetup_themes
+  has_many :user_themes, dependent: :destroy
 
   validates :name, presence: true, uniqueness: true
 

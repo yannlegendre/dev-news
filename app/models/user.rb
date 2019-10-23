@@ -9,6 +9,8 @@ class User < ApplicationRecord
   has_many :comments
   has_many :user_meetups
   has_many :meetups, through: :user_meetups
+  has_many :user_themes
+  has_many :themes, through: :user_themes
 
   def self.find_for_google_oauth(auth)
     puts
