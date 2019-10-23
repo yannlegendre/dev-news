@@ -67,9 +67,10 @@ height: 240px;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  h3 {
-    margin-top: 0;
+  h4 {
+    font-size: 1.2em;
   }
+
 }
 
 .theme-card-container {
@@ -108,4 +109,7 @@ height: 240px;
   text-align: center;
   font-size: 1.4em;
   margin-top: 30px;
+  img {
+    width: 30%;
+  }
 }
