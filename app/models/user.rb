@@ -12,6 +12,10 @@ class User < ApplicationRecord
   has_many :user_themes
   has_many :themes, through: :user_themes
 
+  def interests
+    themes
+  end
+
   def self.find_for_google_oauth(auth)
     puts
     ap auth
