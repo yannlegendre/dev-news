@@ -1,6 +1,6 @@
 class ThemesController < ApplicationController
   def index
-    @themes = Theme.all
+    @interests = current_user.interests.limit(10).order("RANDOM()")
     if params[:theme].present?
       launch_search
     else

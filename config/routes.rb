@@ -10,4 +10,6 @@ Rails.application.routes.draw do
 
   resources :comments, only: [:create, :index]
 
+  resources :user_themes, only: [:destroy]
+
 end

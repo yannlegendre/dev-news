@@ -16,13 +16,16 @@
       </form>
     </div>
     <div class="theme-search-items">
-      <h4>Your current interests</h4>
+      <h4>Some of your current interests</h4>
       <div class="theme-card-container">
-        <div class="user-theme-card"><span>Ruby</span><i class="far fa-minus-square"></i></div>
-        <div class="user-theme-card"><span>IOT</span><i class="far fa-minus-square"></i></div>
-        <div class="user-theme-card"><span>Rails</span><i class="far fa-minus-square"></i></div>
-        <div class="user-theme-card"><span>TDD</span><i class="far fa-minus-square"></i></div>
-        <div class="user-theme-card"><span>Python</span><i class="far fa-minus-square"></i></div>
+        <% @interests.each do |interest| %>
+          <div class="user-theme-card">
+            <span><%= interest.name %></span>
+            <%= link_to user_theme_path(interest), method: delete, data: { confirm: "Are you sure?" }  do %>
+              <i class="far fa-minus-square"></i>
+            <% end %>
+          </div>
+        <% end %>
       </div>
     </div>
   </div>
