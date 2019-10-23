@@ -53,6 +53,9 @@
           <div class="search-error">
             <p>Meetup feature not yet available ! 🤓</p>
             <p>Eventbrite API not available at the moment and Meetup API is 💸</p>
+            <% if @geoloc %>
+              <p>Too bad, we could have given you links to great meetups about <strong><%= @theme %></strong> around <strong><%= @city %></strong> !</p>
+            <% end %>
           </div>
         <% end %>
       </div>

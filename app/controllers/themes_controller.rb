@@ -27,7 +27,6 @@ class ThemesController < ApplicationController
 
   def search_articles
     s = Scraper.new(themes: params[:theme])
-    ap s
     @articles = s.build_articles(s.scrape_fcc)
     set_default_meetups
   end
@@ -37,9 +36,10 @@ class ThemesController < ApplicationController
     # result = a.call_eventbrite
     # @meetups = a.make_event(result)
     lat_lon = "#{params[:latitude]},#{params[:longitude]}"
-    ap lat_lon
     response = Geocoder.search(lat_lon).first
-    ap response.data[:city]
+    @geoloc = true
+    @theme = "'#{params[:theme].split(/\s+/).join(' ')}'"
+    @city = response.data["address"]["city"]
   end
 
   def add_interests
