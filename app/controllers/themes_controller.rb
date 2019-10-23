@@ -45,7 +45,7 @@ class ThemesController < ApplicationController
   def add_interests
     themes = params[:theme].split(/\s+/)
     themes.each do |theme|
-      Theme.create(name: theme) unless theme_instance = Theme.find_by(name: theme)
+      Theme.create(name: theme.downcase) unless theme_instance = Theme.find_by(name: theme.downcase)
       UserTheme.find_or_create_by(theme: theme_instance, user: current_user)
     end
   end

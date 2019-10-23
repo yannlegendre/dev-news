@@ -34,7 +34,7 @@ class Scraper
 
   def get_themes(themes)
     res = []
-    themes.each { |theme| res << Theme.find_or_create_by(name: theme) }
+    themes.each { |theme| res << Theme.find_or_create_by(name: theme.downcase) }
     res
   end
 
