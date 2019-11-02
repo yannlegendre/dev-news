@@ -18,7 +18,9 @@ class Scraper
   # this methods returns an array of 3 hashes
   def scrape_fcc
     result = []
-    url = "https://qmjyl5wyti-dsn.algolia.net/1/indexes/news/query?x-algolia-agent=Algolia%20for%20JavaScript%20(3.33.0)%3B%20Browser&x-algolia-application-id=QMJYL5WYTI&x-algolia-api-key=4318af87aa3ce128708f1153556c6108"
+    url = "https://qmjyl5wyti-dsn.algolia.net/1/indexes/news/query?x-algolia-agent=" \
+    "Algolia%20for%20JavaScript%20(3.33.0)%3B%20Browser&x-algolia-application-id=" \
+    "QMJYL5WYTI&x-algolia-api-key=#{ENV['ALGOLIA_ID']}"
     payload = '{"params":"query=' + @themes_str + '&hitsPerPage=15&page=0"}'
     response = JSON.parse(RestClient.post(url, payload).body)["hits"].first(3)
     response.each do |article|
